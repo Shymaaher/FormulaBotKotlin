@@ -78,15 +78,28 @@ class SimpleBot : TelegramLongPollingBot() {
                     }
                 }
                 else -> {
+                    // Обрабатываем команду и отправляем ответ
                     val (response, imageUrl) = processCommand(messageText)
                     sendResponse(chatId, response, showMainButtons())
-                    if (imageUrl.isNotBlank()) sendCarPhoto(chatId, imageUrl)
+
+                    // Если URL изображения не пустой, отправляем фото
+                    if (imageUrl.isNotBlank()) {
+                        sendCarPhoto(chatId, imageUrl)
+                    }
                 }
             }
         } else if (update != null && update.hasCallbackQuery()) {
             val callbackData = update.callbackQuery.data
             val chatId = update.callbackQuery.message.chatId
-            handleAnswer(chatId, callbackData.toInt())
+
+            if (trackPhotos.containsKey(callbackData)) {
+                val imageUrl = trackPhotos[callbackData]
+                if (imageUrl != null) {
+                    sendTrackPhoto(chatId, imageUrl, callbackData)
+                }
+            } else {
+                handleAnswer(chatId, callbackData.toIntOrNull() ?: -1)
+            }
         }
     }
 
@@ -361,6 +374,44 @@ class SimpleBot : TelegramLongPollingBot() {
 
         try { execute(message) } catch (e: TelegramApiException) { e.printStackTrace() }
     }
+    private val trackPhotos = mapOf(
+        "Бахрейн, Сахир" to "https://f1report.ru/img/fotos/2022/03/f1-1647513927.png",
+        "Саудовская Аравия, Джидда" to "https://f1report.ru/img/fotos/2021/11/f1-1637845657.png",
+        "Австралия, Альберт-Парк" to "https://f1report.ru/img/tracks/albert_park_track_f1_2022.png",
+        "Япония, Сузука" to "https://f1report.ru/img/fotos/2023/09/f1-1695289698.jpg",
+        "Китай, Шанхай" to "https://f1report.ru/img/fotos/2024/04/f1-1713658076.jpg",
+        "США, Майами" to "https://f1report.ru/img/tracks/miami_trassa_f1_2024.png",
+        "Италия, Имола" to "https://f1report.ru/img/fotos/2022/04/f1-1650538642.png",
+        "Монако, Монте-Карло" to "https://f1report.ru/img/fotos/2024/05/f1-1716503092.png",
+        "Канада, Монреаль" to "https://f1report.ru/img/fotos/2023/06/f1-1686840364.jpg",
+        "Испания, Барселона-Каталунья" to "https://f1report.ru/img/fotos/2023/06/f1-1685660476.jpg",
+        "Австрия, Ред Булл Ринг" to "https://f1report.ru/img/fotos/2023/06/f1-1688078094.jpg",
+        "Британия, Сильверстоун" to "https://f1report.ru/img/fotos/2024/07/f1-1720133312.jpg",
+        "Венгрия, Хунгароринг" to "https://f1report.ru/img/tracks/hungaroring-shema-trassi-2021.png",
+        "Бельгия, Спа-Франкоршам" to "https://f1report.ru/img/tracks/spa-francorchamps_2021/f1-1630019541.png",
+        "Нидерланды, Зандфорт" to "https://f1report.ru/img/fotos/2021/09/f1-1630625185.png",
+        "Италия, Монца" to "https://f1report.ru/img/tracks/monza_2021.png",
+        "Азербайджан, Баку" to "https://f1report.ru/img/fotos/2021/06/f1-1622759639.png",
+        "Сингапур, Марина Бей" to "https://f1report.ru/img/fotos/2023/09/f1-1694779564.png",
+        "США, Америк" to "https://f1report.ru/img/fotos/2022/10/f1-1666223173.png",
+        "Мексика, Мехико-Сити" to "https://f1report.ru/img/tracks/trassa-f1-mexico-city-2021.png",
+        "Бразилия, Интерлагос" to "https://f1report.ru/img/tracks/brazil_interlagos_2024.png",
+        "США, Лас-Вегас" to "https://f1report.ru/img/fotos/2023/11/f1-1700052155.jpg",
+        "Катар, Лосаил" to "https://f1report.ru/img/fotos/2023/10/f1-1696548159.png",
+        "Абу-Даби, Яс Марина" to "https://f1report.ru/img/fotos/2021/12/f1-1639132582.png",
+    )
+
+    private fun sendTrackPhoto(chatId: Long, imageUrl: String, trackName: String) {
+        val sendPhoto = SendPhoto(chatId.toString(), InputFile(imageUrl)).apply {
+            caption = "Трасса: $trackName"
+        }
+        try {
+            execute(sendPhoto)
+        } catch (e: TelegramApiException) {
+            e.printStackTrace()
+        }
+    }
+
 
     /**
      * Получает текущие результаты Кубка конструкторов Формулы 1 из файла и возвращает строку с информацией о командах.
