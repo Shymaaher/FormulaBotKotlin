@@ -400,17 +400,50 @@ class SimpleBot : TelegramLongPollingBot() {
         "Катар, Лосаил" to "https://f1report.ru/img/fotos/2023/10/f1-1696548159.png",
         "Абу-Даби, Яс Марина" to "https://f1report.ru/img/fotos/2021/12/f1-1639132582.png",
     )
+    private val trackInfo = mapOf(
+        "Бахрейн, Сахир" to "Официальное название трассы: Bahrain International Circuit\nОфициальный сайт: https://www.bahraingp.com/\nДлина: 5.412 км\nКоличество кругов: 57\nПродолжительность гонки: около 1ч 33 мин",
+        "Саудовская Аравия, Джидда" to "Официальное название трассы: Jeddah Street Circuit\nОфициальный сайт: https://www.saudiarabiangp.com/\nДлина: 6.174 км\nКоличество кругов: 50\nПродолжительность гонки: около 1ч 31 мин",
+        "Австралия, Альберт-Парк" to "Официальное название трассы: Melbourne Grand Prix Circuit\nОфициальный сайт: https://www.grandprix.com.au/\nДлина: 5.278 км\nКоличество кругов: 58\nПродолжительность гонки: около 1ч 30 мин",
+        "Япония, Сузука" to "Официальное название трассы: Suzuka Circuit\nОфициальный сайт: https://www.suzukacircuit.jp/\nДлина: 5.807 км\nКоличество кругов: 53\nПродолжительность гонки: около 1ч 30 мин",
+        "Китай, Шанхай" to "Официальное название трассы: Shanghai International Circuit\nОфициальный сайт: https://www.shanghaigp.com/\nДлина: 5.451 км\nКоличество кругов: 56\nПродолжительность гонки: около 1ч 35 мин",
+        "США, Майами" to "Официальное название трассы: Miami International Autodrome\nОфициальный сайт: https://www.miamigp.com/\nДлина: 5.41 км\nКоличество кругов: 57\nПродолжительность гонки: около 1ч 36 мин",
+        "Италия, Имола" to "Официальное название трассы: Autodromo Enzo e Dino Ferrari\nОфициальный сайт: https://www.autodromoimola.it/\nДлина: 4.909 км\nКоличество кругов: 63\nПродолжительность гонки: около 1ч 32 мин",
+        "Монако, Монте-Карло" to "Официальное название трассы: Circuit de Monaco\nОфициальный сайт: https://www.formula1.com/en/racing/2024/Monaco.html\nДлина: 3.337 км\nКоличество кругов: 78\nПродолжительность гонки: около 1ч 45 мин",
+        "Канада, Монреаль" to "Официальное название трассы: Circuit Gilles Villeneuve\nОфициальный сайт: https://www.circuitgillesvilleneuve.ca/\nДлина: 4.361 км\nКоличество кругов: 70\nПродолжительность гонки: около 1ч 30 мин",
+        "Испания, Барселона-Каталунья" to "Официальное название трассы: Circuit de Barcelona-Catalunya\nОфициальный сайт: https://www.circuitcat.com/\nДлина: 4.675 км\nКоличество кругов: 66\nПродолжительность гонки: около 1ч 35 мин",
+        "Австрия, Ред Булл Ринг" to "Официальное название трассы: Red Bull Ring\nОфициальный сайт: https://www.projekt-spielberg.com/\nДлина: 4.318 км\nКоличество кругов: 71\nПродолжительность гонки: около 1ч 20 мин",
+        "Британия, Сильверстоун" to "Официальное название трассы: Silverstone Circuit\nОфициальный сайт: https://www.silverstone.co.uk/\nДлина: 5.891 км\nКоличество кругов: 52\nПродолжительность гонки: около 1ч 30 мин",
+        "Венгрия, Хунгароринг" to "Официальное название трассы: Hungaroring\nОфициальный сайт: https://www.hungaroring.hu/\nДлина: 4.381 км\nКоличество кругов: 70\nПродолжительность гонки: около 1ч 35 мин",
+        "Бельгия, Спа-Франкоршам" to "Официальное название трассы: Circuit de Spa-Francorchamps\nОфициальный сайт: https://www.spa-francorchamps.be/\nДлина: 7.004 км\nКоличество кругов: 44\nПродолжительность гонки: около 1ч 45 мин",
+        "Нидерланды, Зандфорт" to "Официальное название трассы: Circuit Zandvoort\nОфициальный сайт: https://www.circuitzandvoort.nl/\nДлина: 4.259 км\nКоличество кругов: 72\nПродолжительность гонки: около 1ч 30 мин",
+        "Италия, Монца" to "Официальное название трассы: Autodromo Nazionale Monza\nОфициальный сайт: https://www.monzanet.it/\nДлина: 5.793 км\nКоличество кругов: 53\nПродолжительность гонки: около 1ч 15 мин",
+        "Азербайджан, Баку" to "Официальное название трассы: Baku City Circuit\nОфициальный сайт: https://www.bakucitycircuit.com/\nДлина: 6.003 км\nКоличество кругов: 51\nПродолжительность гонки: около 1ч 40 мин",
+        "Сингапур, Марина Бей" to "Официальное название трассы: Marina Bay Street Circuit\nОфициальный сайт: https://singaporegp.sg/\nДлина: 5.063 км\nКоличество кругов: 61\nПродолжительность гонки: около 1ч 50 мин",
+        "США, Америк" to "Официальное название трассы: Circuit of the Americas\nОфициальный сайт: https://www.circuitoftheamericas.com/\nДлина: 5.513 км\nКоличество кругов: 56\nПродолжительность гонки: около 1ч 40 мин",
+        "Мексика, Мехико-Сити" to "Официальное название трассы: Autódromo Hermanos Rodríguez\nОфициальный сайт: https://www.autodromorodriguez.com.mx/\nДлина: 4.304 км\nКоличество кругов: 71\nПродолжительность гонки: около 1ч 40 мин",
+        "Бразилия, Интерлагос" to "Официальное название трассы: Autódromo José Carlos Pace\nОфициальный сайт: https://www.grandepremio.com.br/\nДлина: 4.309 км\nКоличество кругов: 71\nПродолжительность гонки: около 1ч 30 мин",
+        "США, Лас-Вегас" to "Официальное название трассы: Las Vegas Grand Prix\nОфициальный сайт: https://www.f1lasvegasgp.com/\nДлина: 6.120 км\nКоличество кругов: 50\nПродолжительность гонки: около 1ч 40 мин",
+        "Катар, Лосаил" to "Официальное название трассы: Losail International Circuit\nОфициальный сайт: https://www.lcsc.qa/\nДлина: 5.380 км\nКоличество кругов: 57\nПродолжительность гонки: около 1ч 30 мин",
+        "Абу-Даби, Яс Марина" to "Официальное название трассы: Yas Marina Circuit\nОфициальный сайт: https://www.yasmarinacircuit.com/\nДлина: 5.281 км\nКоличество кругов: 55\nПродолжительность гонки: около 1ч 40 мин",
+
+
+    )
 
     private fun sendTrackPhoto(chatId: Long, imageUrl: String, trackName: String) {
-        val sendPhoto = SendPhoto(chatId.toString(), InputFile(imageUrl)).apply {
-            caption = "Трасса: $trackName"
+        val trackDescription = trackInfo[trackName] ?: "Информация о трассе недоступна."
+
+        val message = SendMessage().apply {
+            this.chatId = chatId.toString()
+            this.text = trackDescription
         }
-        try {
-            execute(sendPhoto)
-        } catch (e: TelegramApiException) {
-            e.printStackTrace()
+        try { execute(message) } catch (e: TelegramApiException) { e.printStackTrace() }
+
+        if (imageUrl.isNotBlank()) {
+            val sendPhoto = SendPhoto(chatId.toString(), InputFile(imageUrl)).apply { caption = "Фотография трассы $trackName" }
+            try { execute(sendPhoto) } catch (e: TelegramApiException) { e.printStackTrace() }
         }
     }
+
 
 
     /**
