@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "2.0.20"
+    kotlin("jvm") version "2.0.10"
 }
 
 group = "org.example"
@@ -10,7 +10,9 @@ repositories {
 }
 
 dependencies {
-    testImplementation(kotlin("test"))
+    // Telegram bot api
+    implementation("org.telegram:telegrambots:6.3.0")
+    //testImplementation(kotlin("test"))
 }
 
 tasks.test {
