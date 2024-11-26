@@ -427,7 +427,7 @@ class SimpleBot : TelegramLongPollingBot() {
         "Абу-Даби, Яс Марина" to "Официальное название трассы: Yas Marina Circuit\nОфициальный сайт: https://www.yasmarinacircuit.com/\nДлина: 5.281 км\nКоличество кругов: 55\nПродолжительность гонки: около 1ч 40 мин",
 
 
-    )
+        )
 
     private fun sendTrackPhoto(chatId: Long, imageUrl: String, trackName: String) {
         val trackDescription = trackInfo[trackName] ?: "Информация о трассе недоступна."
