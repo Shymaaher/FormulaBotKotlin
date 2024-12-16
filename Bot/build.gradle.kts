@@ -15,9 +15,6 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-databind:2.18.0")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.18.0")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-
-    // JUnit для тестов
-    testImplementation("org.junit.jupiter:junit-jupiter:5.11.3")
 }
 
 tasks.test {
@@ -25,5 +22,5 @@ tasks.test {
 }
 
 kotlin {
-    jvmToolchain(21) // или замените на версию, поддерживаемую в проекте
+    jvmToolchain(21)
 }
