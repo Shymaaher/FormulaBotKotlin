@@ -83,7 +83,7 @@ class SimpleBot : TelegramLongPollingBot() {
             for (i in 0 until teamsArray.length()) {
                 val team = teamsArray.getJSONObject(i)
                 standings.append(
-                    "Команда:  ${team.getString("Имя")}, " +
+                    "Пилот:  ${team.getString("Имя")}, " +
                             "Поб: ${team.getString("Название команды")}, " +
                             "ПЛ: ${team.getString("ПОБ")}, " +
                             "ЛК: ${team.getString("ПЛ")}, " +
